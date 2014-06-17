@@ -11,7 +11,8 @@ object HmrcBuild extends Build {
 
   val appDependencies = Seq(
     Test.scalaTest,
-    Test.pegdown
+    Test.pegdown,
+    Test.scalacheck
   )
 
   lazy val root = Project(nameApp, file("."), settings = DefaultBuildSettings(nameApp, versionApp, targetJvm = "jvm-1.7")() ++ Seq(
@@ -32,6 +33,7 @@ private object BuildDependencies {
   sealed abstract class Test(scope: String) {
     val scalaTest = "org.scalatest" %% "scalatest" % "2.2.0" % scope
     val pegdown = "org.pegdown" % "pegdown" % "1.4.2" % scope
+    val scalacheck = "org.scalacheck" %% "scalacheck" % "1.11.4" % scope
   }
 
   object Test extends Test("test")
