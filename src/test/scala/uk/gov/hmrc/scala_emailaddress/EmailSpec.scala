@@ -11,11 +11,11 @@ class EmailSpec extends WordSpec with Matchers {
     }
 
     "throw an exception for an invalid email" in {
-      evaluating { Email("sausages") } should produce[IllegalArgumentException]
+      an [IllegalArgumentException] should be thrownBy { Email("sausages") }
     }
 
     "throw an exception for an empty email" in {
-      evaluating { Email("") } should produce[IllegalArgumentException]
+      an [IllegalArgumentException] should be thrownBy { Email("") }
     }
   }
 
@@ -37,11 +37,11 @@ class EmailSpec extends WordSpec with Matchers {
     }
 
     "generate an exception for an invalid email address" in {
-        evaluating { Email.obfuscate("sausages") } should produce[IllegalArgumentException]
+      an [IllegalArgumentException] should be thrownBy { Email.obfuscate("sausages") }
     }
 
     "generate an exception for an empty email" in {
-      evaluating { Email.obfuscate("") } should produce[IllegalArgumentException]
+      an [IllegalArgumentException] should be thrownBy { Email.obfuscate("") }
     }
 
     "work directly from the class" in {
