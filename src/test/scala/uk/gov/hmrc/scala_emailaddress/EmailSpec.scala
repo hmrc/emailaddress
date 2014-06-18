@@ -37,6 +37,17 @@ class EmailSpec extends WordSpec with Matchers with PropertyChecks {
     }
   }
 
+  "An Email class" should {
+    "implicitly convert to a String of the address" in {
+      val e: String = Email("test@domain.com")
+      e should be ("test@domain.com")
+    }
+    "toString to a String of the address" in {
+      val e = Email("test@domain.com")
+      e.toString should be ("test@domain.com")
+    }
+  }
+
   "Obfuscating an email address" should {
     "work for a valid email address with a long mailbox" in {
       Email.obfuscate("abcdef@example.com").value should be("a****f@example.com")
@@ -55,15 +66,11 @@ class EmailSpec extends WordSpec with Matchers with PropertyChecks {
     }
 
     "generate an exception for an invalid email address" in {
-      an[IllegalArgumentException] should be thrownBy {
-        Email.obfuscate("sausages")
-      }
+      an[IllegalArgumentException] should be thrownBy { Email.obfuscate("sausages") }
     }
 
     "generate an exception for an empty email" in {
-      an[IllegalArgumentException] should be thrownBy {
-        Email.obfuscate("")
-      }
+      an[IllegalArgumentException] should be thrownBy { Email.obfuscate("") }
     }
 
     "work directly from the class" in {
