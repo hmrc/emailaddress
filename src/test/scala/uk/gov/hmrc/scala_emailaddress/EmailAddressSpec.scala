@@ -1,19 +1,13 @@
 package uk.gov.hmrc.scala_emailaddress
 
-import org.scalacheck.Gen
 import org.scalatest.prop.PropertyChecks
 import org.scalatest.{Matchers, WordSpec}
 
-class EmailAddressSpec extends WordSpec with Matchers with PropertyChecks {
-
-  val validEmailAddresses = for {
-    mailbox <- Gen.alphaStr if !mailbox.isEmpty
-    domain <- Gen.nonEmptyListOf(Gen.alphaStr.suchThat(!_.isEmpty))
-  } yield s"$mailbox@${domain.mkString(".")}"
+class EmailAddressSpec extends WordSpec with Matchers with PropertyChecks with EmailAddressGenerators {
 
   "Creating an EmailAddress class" should {
     "work for a valid email" in {
-      forAll (validEmailAddresses) { (address: String) =>
+      forAll (validEmailAddresses) { address =>
         EmailAddress(address).value should be(address)
       }
     }

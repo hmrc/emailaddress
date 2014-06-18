@@ -11,8 +11,8 @@ object ObfuscatedEmailAddress {
 
   import EmailAddress.validEmail
 
-  def apply(email: String): ObfuscatedEmailAddress = new ObfuscatedEmailAddress {
-    val value = email match {
+  def apply(plainEmailAddress: String): ObfuscatedEmailAddress = new ObfuscatedEmailAddress {
+    val value = plainEmailAddress match {
       case validEmail(shortMailbox(m), domain) =>
         s"${obscure(m)}@$domain"
 
@@ -20,7 +20,7 @@ object ObfuscatedEmailAddress {
         s"$firstLetter${obscure(middle)}$lastLetter@$domain"
 
       case invalidEmail =>
-        throw new IllegalArgumentException(s"Cannot obfuscate invalid email address $invalidEmail")
+        throw new IllegalArgumentException(s"Cannot obfuscate invalid email address '$invalidEmail'")
     }
   }
 
