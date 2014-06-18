@@ -46,34 +46,7 @@ class EmailSpec extends WordSpec with Matchers with PropertyChecks {
       val e = Email("test@domain.com")
       e.toString should be ("test@domain.com")
     }
-  }
-
-  "Obfuscating an email address" should {
-    "work for a valid email address with a long mailbox" in {
-      Email.obfuscate("abcdef@example.com").value should be("a****f@example.com")
-    }
-
-    "work for a valid email address with a three letter mailbox" in {
-      Email.obfuscate("abc@example.com").value should be("a*c@example.com")
-    }
-
-    "work for a valid email address with a two letter mailbox" in {
-      Email.obfuscate("ab@example.com").value should be("**@example.com")
-    }
-
-    "work for a valid email address with a single letter mailbox" in {
-      Email.obfuscate("a@example.com").value should be("*@example.com")
-    }
-
-    "generate an exception for an invalid email address" in {
-      an[IllegalArgumentException] should be thrownBy { Email.obfuscate("sausages") }
-    }
-
-    "generate an exception for an empty email" in {
-      an[IllegalArgumentException] should be thrownBy { Email.obfuscate("") }
-    }
-
-    "work directly from the class" in {
+    "be obfuscatable" in {
       Email("abcdef@example.com").obfuscated.value should be("a****f@example.com")
     }
   }
