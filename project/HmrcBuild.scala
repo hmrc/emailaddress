@@ -10,9 +10,10 @@ object HmrcBuild extends Build {
   val versionApp = "0.1.0-SNAPSHOT"
 
   val appDependencies = Seq(
-    Test.scalaTest,
-    Test.pegdown,
-    Test.scalacheck
+    play       % "provided",
+    scalaTest  % "test",
+    pegdown    % "test",
+    scalacheck % "test"
   )
 
   lazy val root = Project(nameApp, file("."), settings = DefaultBuildSettings(nameApp, versionApp, targetJvm = "jvm-1.7")() ++ Seq(
@@ -30,13 +31,10 @@ object HmrcBuild extends Build {
 
 private object BuildDependencies {
 
-  sealed abstract class Test(scope: String) {
-    val scalaTest = "org.scalatest" %% "scalatest" % "2.2.0" % scope
-    val pegdown = "org.pegdown" % "pegdown" % "1.4.2" % scope
-    val scalacheck = "org.scalacheck" %% "scalacheck" % "1.11.4" % scope
-  }
-
-  object Test extends Test("test")
+  val scalaTest = "org.scalatest" %% "scalatest" % "2.2.0"
+  val pegdown = "org.pegdown" % "pegdown" % "1.4.2"
+  val scalacheck = "org.scalacheck" %% "scalacheck" % "1.11.4"
+  val play = "com.typesafe.play" %% "play" % "2.3.0"
 
 }
 
