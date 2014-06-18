@@ -1,17 +1,17 @@
 package uk.gov.hmrc.scala_emailaddress
 
-trait ObfuscatedEmail {
+trait ObfuscatedEmailAddress {
   val value: String
   override def toString: String = value
 }
 
-object ObfuscatedEmail {
+object ObfuscatedEmailAddress {
   final private val shortMailbox = "(.{1,2})".r
   final private val longMailbox = "(.)(.*)(.)".r
 
-  import Email.validEmail
+  import EmailAddress.validEmail
 
-  def apply(email: String): ObfuscatedEmail = new ObfuscatedEmail {
+  def apply(email: String): ObfuscatedEmailAddress = new ObfuscatedEmailAddress {
     val value = email match {
       case validEmail(shortMailbox(m), domain) =>
         s"${obscure(m)}@$domain"
