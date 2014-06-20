@@ -1,4 +1,4 @@
-package uk.gov.hmrc.scala_emailaddress
+package uk.gov.hmrc.emailaddress
 
 trait ObfuscatedEmailAddress {
   val value: String

@@ -1,4 +1,4 @@
-package uk.gov.hmrc.scala_emailaddress
+package uk.gov.hmrc.emailaddress
 
 import org.scalatest.prop.PropertyChecks
 import org.scalatest.{Matchers, WordSpec}

@@ -6,7 +6,7 @@ object HmrcBuild extends Build {
   import uk.gov.hmrc.DefaultBuildSettings
   import BuildDependencies._
 
-  val nameApp = "scala-emailaddress"
+  val nameApp = "emailaddress"
   val versionApp = "0.1.0-SNAPSHOT"
 
   val appDependencies = Seq(
@@ -53,9 +53,9 @@ object SonatypeBuild {
         </license>
       </licenses>
       <scm>
-        <connection>scm:git@github.com:hmrc/scala-emailaddress.git</connection>
-        <developerConnection>scm:git@github.com:hmrc/scala-emailaddress.git</developerConnection>
-        <url>git@github.com:hmrc/scala-emailaddress.git</url>
+        <connection>scm:git@github.com:hmrc/emailaddress.git</connection>
+        <developerConnection>scm:git@github.com:hmrc/emailaddress.git</developerConnection>
+        <url>git@github.com:hmrc/emailaddress.git</url>
       </scm>
       <developers>
         <developer>

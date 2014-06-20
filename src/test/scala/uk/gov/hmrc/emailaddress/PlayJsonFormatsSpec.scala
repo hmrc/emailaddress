@@ -1,4 +1,4 @@
-package uk.gov.hmrc.scala_emailaddress
+package uk.gov.hmrc.emailaddress
 
 import org.scalatest.{WordSpec, Matchers}
 import play.api.libs.json.{Json, JsError, JsSuccess, JsString}

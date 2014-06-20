@@ -1,4 +1,4 @@
-package uk.gov.hmrc.scala_emailaddress
+package uk.gov.hmrc.emailaddress
 
 
 case class EmailAddress(value: String) {
@@ -10,7 +10,7 @@ case class EmailAddress(value: String) {
 }
 
 object EmailAddress {
-  final private[scala_emailaddress] val validEmail = """\b([a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+)@([a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*)\b""".r
+  final private[emailaddress] val validEmail = """\b([a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+)@([a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*)\b""".r
 
   def isValid(email: String) = email match {
     case validEmail(_,_) => true
