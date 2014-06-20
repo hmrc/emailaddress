@@ -1,7 +1,7 @@
 emailaddress
 ==================
 
-Micro-library for validating and obfuscating email addresses
+Micro-library for typing, validating and obfuscating email addresses
 
 ### Address Typing & Validation
 The `EmailAddress` class will only accept valid addresses:
@@ -59,4 +59,10 @@ someString: String = example@test.com
 
 scala> val someString = EmailAddress("example@test.com").toString
 someString: String = example@test.com
+
+scala> val someString: String = ObfuscatedEmailAddress("example@test.com")
+someString: String = e*****e@test.com
+
+scala> val someString = ObfuscatedEmailAddress("example@test.com").toString
+someString: String = e*****e@test.com
 ```

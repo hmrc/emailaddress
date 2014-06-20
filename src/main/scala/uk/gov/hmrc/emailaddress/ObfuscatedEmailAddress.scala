@@ -11,6 +11,8 @@ object ObfuscatedEmailAddress {
 
   import EmailAddress.validEmail
 
+  implicit def obfuscatedEmailToString(e: ObfuscatedEmailAddress): String = e.value
+
   def apply(plainEmailAddress: String): ObfuscatedEmailAddress = new ObfuscatedEmailAddress {
     val value = plainEmailAddress match {
       case validEmail(shortMailbox(m), domain) =>

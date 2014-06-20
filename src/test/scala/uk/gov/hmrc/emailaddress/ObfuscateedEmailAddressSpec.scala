@@ -36,4 +36,14 @@ class ObfuscateedEmailAddressSpec extends WordSpec with Matchers with PropertyCh
       an[IllegalArgumentException] should be thrownBy { ObfuscatedEmailAddress("") }
     }
   }
+  "An ObfuscatedEmailAddress class" should {
+    "implicitly convert to an obfuscated String of the address" in {
+      val e: String = ObfuscatedEmailAddress("test@domain.com")
+      e should be ("t**t@domain.com")
+    }
+    "toString to an obfuscated String of the address" in {
+      val e = ObfuscatedEmailAddress("test@domain.com")
+      e.toString should be ("t**t@domain.com")
+    }
+  }
 }
