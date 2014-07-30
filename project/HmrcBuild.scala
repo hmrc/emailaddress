@@ -16,15 +16,21 @@ object HmrcBuild extends Build {
     scalacheck % "test"
   )
 
-  lazy val root = Project(nameApp, file("."), settings = DefaultBuildSettings(nameApp, versionApp, targetJvm = "jvm-1.7")() ++ Seq(
-    libraryDependencies ++= appDependencies, 
-    resolvers := Seq(
-      Opts.resolver.sonatypeReleases,
-      Opts.resolver.sonatypeSnapshots,
-      "typesafe-releases" at "http://repo.typesafe.com/typesafe/releases/",
-      "typesafe-snapshots" at "http://repo.typesafe.com/typesafe/snapshots/"
-    )
-  ) ++ SonatypeBuild()
+  lazy val root = Project(
+    id = nameApp,
+    base = file("."),
+    settings =
+      DefaultBuildSettings(appName = nameApp, appVersion = versionApp, scalaversion = "2.11.1", targetJvm = "jvm-1.7")() ++
+      Seq(
+        crossScalaVersions := Seq("2.11.1", "2.10.4"),
+        libraryDependencies ++= appDependencies,
+        resolvers := Seq(
+          Opts.resolver.sonatypeReleases,
+          Opts.resolver.sonatypeSnapshots,
+          "typesafe-releases" at "http://repo.typesafe.com/typesafe/releases/",
+          "typesafe-snapshots" at "http://repo.typesafe.com/typesafe/snapshots/"
+        )
+      ) ++ SonatypeBuild()
   )
 
 }
@@ -32,9 +38,9 @@ object HmrcBuild extends Build {
 private object BuildDependencies {
 
   val scalaTest = "org.scalatest" %% "scalatest" % "2.2.0"
-  val pegdown = "org.pegdown" % "pegdown" % "1.4.2"
+  val pegdown = "org.pegdown" % "pegdown" % "1.4.2" cross CrossVersion.Disabled
   val scalacheck = "org.scalacheck" %% "scalacheck" % "1.11.4"
-  val play = "com.typesafe.play" %% "play" % "2.3.0"
+  val play = "com.typesafe.play" %% "play" % "2.3.0" // TODO should be "provided"?
 
 }
 
