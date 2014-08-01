@@ -7,7 +7,7 @@ object HmrcBuild extends Build {
   import BuildDependencies._
 
   val nameApp = "emailaddress"
-  val versionApp = "0.2.0"
+  val versionApp = "0.3.0-SNAPSHOT"
 
   val appDependencies = Seq(
     play       % "provided",
