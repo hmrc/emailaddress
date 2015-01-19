@@ -4,45 +4,58 @@ import Keys._
 object HmrcBuild extends Build {
 
   import uk.gov.hmrc.DefaultBuildSettings
+  import DefaultBuildSettings._
   import BuildDependencies._
+  import uk.gov.hmrc.{SbtBuildInfo, ShellPrompt}
 
-  val nameApp = "emailaddress"
-  val versionApp = "0.3.0-SNAPSHOT"
+  val appName = "emailaddress"
+  val appVersion = "0.3.0-SNAPSHOT"
 
-  val appDependencies = Seq(
-    play       % "provided",
-    scalaTest  % "test",
-    pegdown    % "test",
-    scalacheck % "test"
-  )
-
-  lazy val root = Project(
-    id = nameApp,
-    base = file("."),
-    settings =
-      DefaultBuildSettings(appName = nameApp, appVersion = versionApp, scalaversion = "2.11.1", targetJvm = "jvm-1.7")() ++
-      Seq(
-        crossScalaVersions := Seq("2.11.1", "2.10.4"),
-        libraryDependencies ++= appDependencies,
-        resolvers := Seq(
-          Opts.resolver.sonatypeReleases,
-          Opts.resolver.sonatypeSnapshots,
-          "typesafe-releases" at "http://repo.typesafe.com/typesafe/releases/",
-          "typesafe-snapshots" at "http://repo.typesafe.com/typesafe/snapshots/"
-        )
-      ) ++ SonatypeBuild()
-  )
+  lazy val emailaddress = Project(appName, file("."))
+    .settings(version := appVersion)
+    .settings(scalaSettings: _*)
+    .settings(defaultSettings(): _*)
+    .settings(
+      targetJvm := "jvm-1.7",
+      shellPrompt := ShellPrompt(appVersion),
+      libraryDependencies ++= AppDependencies(),
+      resolvers := Seq(
+        Opts.resolver.sonatypeReleases,
+        Opts.resolver.sonatypeSnapshots,
+        "typesafe-releases" at "http://repo.typesafe.com/typesafe/releases/",
+        "typesafe-snapshots" at "http://repo.typesafe.com/typesafe/snapshots/"
+      ),
+      crossScalaVersions := Seq("2.11.5")
+    )
+    .settings(SbtBuildInfo(): _*)
+    .settings(SonatypeBuild(): _*)
 
 }
 
-private object BuildDependencies {
+private object AppDependencies {
 
-  val scalaTest = "org.scalatest" %% "scalatest" % "2.2.0"
-  val pegdown = "org.pegdown" % "pegdown" % "1.4.2" cross CrossVersion.Disabled
-  val scalacheck = "org.scalacheck" %% "scalacheck" % "1.11.4"
-  val play = "com.typesafe.play" %% "play" % "2.3.0" // TODO should be "provided"?
+  val compile = Seq(
+    "com.typesafe.play" %% "play-json" % "2.3.7" % "provided"
+    )
 
+  trait TestDependencies {
+    lazy val scope: String = "test"
+    lazy val test: Seq[ModuleID] = ???
+  }
+
+  object Test {
+    def apply() = new TestDependencies {
+      override lazy val test = Seq(
+        "org.scalatest" %% "scalatest" % "2.2.1" % scope,
+        "org.pegdown" % "pegdown" % "1.4.2" % scope,
+        "org.scalacheck" %% "scalacheck" % "1.12.1" % scope
+      )
+    }.test
+  }
+
+  def apply() = compile ++ Test()
 }
+
 
 object SonatypeBuild {
 
