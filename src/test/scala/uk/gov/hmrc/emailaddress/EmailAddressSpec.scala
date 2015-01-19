@@ -29,6 +29,10 @@ class EmailAddressSpec extends WordSpec with Matchers with PropertyChecks with E
         an[IllegalArgumentException] should be thrownBy { EmailAddress(s) }
       }}
     }
+	
+	"throw an exception when there are two consecutive dots" in {
+	  an [IllegalArgumentException] should be thrownBy { EmailAddress("test..domain@domain.com") }
+	}
   }
 
   "An EmailAddress class" should {
