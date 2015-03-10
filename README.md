@@ -66,3 +66,11 @@ someString: String = e*****e@test.com
 scala> val someString = ObfuscatedEmailAddress("example@test.com").toString
 someString: String = e*****e@test.com
 ```
+
+### Installing
+
+Include the following dependency in your SBT build
+
+```
+libraryDependencies += "uk.gov.hmrc" %% "emailaddress" % "0.2.0"
+```
