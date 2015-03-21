@@ -1,12 +1,12 @@
 emailaddress
 ==================
 
-Micro-library for typing, validating and obfuscating email addresses
+Scala micro-library for typing, validating and obfuscating email addresses
 
 ### Address Typing & Validation
 The `EmailAddress` class will only accept valid addresses:
 
-```
+```scala
 scala> import emailaddress._
 import emailaddress._
 
@@ -19,7 +19,7 @@ java.lang.IllegalArgumentException: requirement failed: 'not_a_meaningful_addres
 
 You can also use `EmailAddress.isValid(...)`:
 
-```
+```scala
 scala> EmailAddress.isValid("example@test.com")
 res2: Boolean = true
 
@@ -30,13 +30,13 @@ res3: Boolean = false
 ### Obfuscation
 Addresses are obfuscated by starring out all of their mailbox part, apart from the first and last letters:
 
-```
+```scala
 scala> ObfuscatedEmailAddress("example@test.com")
 res4: uk.gov.hmrc.emailaddress.ObfuscatedEmailAddress = e*****e@test.com
 ```
 Unless there are only two letters:
 
-```
+```scala
 scala> ObfuscatedEmailAddress("ex@test.com")
 res7: uk.gov.hmrc.emailaddress.ObfuscatedEmailAddress = **@test.com```
 
@@ -44,7 +44,7 @@ res7: uk.gov.hmrc.emailaddress.ObfuscatedEmailAddress = **@test.com```
 
 You can also create them directly from an `EmailAddress`:
 
-```
+```scala
 scala> EmailAddress("example@test.com").obfuscated
 res6: uk.gov.hmrc.emailaddress.ObfuscatedEmailAddress = e*****e@test.com
 ```
@@ -53,7 +53,7 @@ res6: uk.gov.hmrc.emailaddress.ObfuscatedEmailAddress = e*****e@test.com
 ### Converting back to `String`
 EmailAddress classes `toString` and implicitly convert to `String`s nicely:
 
-```
+```scala
 scala> val someString: String = EmailAddress("example@test.com")
 someString: String = example@test.com
 
@@ -71,6 +71,6 @@ someString: String = e*****e@test.com
 
 Include the following dependency in your SBT build
 
-```
+```scala
 libraryDependencies += "uk.gov.hmrc" %% "emailaddress" % "0.2.0"
 ```
