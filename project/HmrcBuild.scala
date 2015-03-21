@@ -28,15 +28,15 @@ object HmrcBuild extends Build {
       crossScalaVersions := Seq("2.11.5")
     )
     .settings(SbtBuildInfo(): _*)
-    .settings(SonatypeBuild(): _*)
+    .settings(POMMetadata())
 
 }
 
 private object AppDependencies {
 
   val compile = Seq(
-    "com.typesafe.play" %% "play-json" % "2.3.7" % "provided"
-    )
+  "com.typesafe.play" %% "play-json" % "2.3.8" % "provided"
+  )
 
   trait TestDependencies {
     lazy val scope: String = "test"
@@ -46,7 +46,7 @@ private object AppDependencies {
   object Test {
     def apply() = new TestDependencies {
       override lazy val test = Seq(
-        "org.scalatest" %% "scalatest" % "2.2.1" % scope,
+        "org.scalatest" %% "scalatest" % "2.2.2" % scope,
         "org.pegdown" % "pegdown" % "1.4.2" % scope,
         "org.scalacheck" %% "scalacheck" % "1.12.1" % scope
       )
@@ -57,12 +57,9 @@ private object AppDependencies {
 }
 
 
-object SonatypeBuild {
-
-  import xerial.sbt.Sonatype._
+object POMMetadata {
 
   def apply() = {
-    sonatypeSettings ++ Seq(
     pomExtra :=
       <url>https://www.gov.uk/government/organisations/hm-revenue-customs</url>
       <licenses>
@@ -83,7 +80,6 @@ object SonatypeBuild {
           <url>http://www.zuhlke.co.uk/</url>
         </developer>
       </developers>
-    )
   }
 }
 
