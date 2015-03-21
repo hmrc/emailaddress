@@ -1,6 +1,8 @@
 emailaddress
 ==================
 
+[![Join the chat at https://gitter.im/hmrc/emailaddress](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/hmrc/emailaddress?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Scala micro-library for typing, validating and obfuscating email addresses
 
 ### Address Typing & Validation
