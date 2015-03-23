@@ -76,3 +76,5 @@ Include the following dependency in your SBT build
 ```scala
 libraryDependencies += "uk.gov.hmrc" %% "emailaddress" % "0.2.0"
 ```
+
+
