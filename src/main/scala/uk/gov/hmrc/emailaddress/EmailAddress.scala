@@ -18,10 +18,8 @@ object EmailAddress {
   }
 
   implicit def emailToString(e: EmailAddress): String = e.value
-
-  lazy implicit val emailAddressFormat = PlayJsonFormats.emailAddressFormat
-
 }
+
 object PlayJsonFormats {
   import play.api.libs.json._
 
@@ -34,5 +32,4 @@ object PlayJsonFormats {
   implicit val emailAddressWrites = new Writes[EmailAddress] {
     def writes(e: EmailAddress): JsValue = JsString(e.value)
   }
-  implicit val emailAddressFormat = Format(emailAddressReads, emailAddressWrites)
 }
