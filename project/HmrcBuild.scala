@@ -34,9 +34,7 @@ object HmrcBuild extends Build {
 
 private object AppDependencies {
 
-  val compile = Seq(
-  "com.typesafe.play" %% "play-json" % "2.3.8" % "provided"
-  )
+  val compile = Seq.empty
 
   trait TestDependencies {
     lazy val scope: String = "test"
