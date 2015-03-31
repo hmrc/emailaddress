@@ -5,7 +5,7 @@ import play.api.libs.json.{Json, JsError, JsSuccess, JsString}
 
 class PlayJsonFormatsSpec extends WordSpec with Matchers {
 
-  implicit val format = PlayJsonFormats.emailAddressFormat
+  import PlayJsonFormats._
 
   "Reading an EmailAddress from JSON" should {
 
