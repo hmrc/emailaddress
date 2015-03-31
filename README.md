@@ -74,7 +74,9 @@ someString: String = e*****e@test.com
 Include the following dependency in your SBT build
 
 ```scala
-libraryDependencies += "uk.gov.hmrc" %% "emailaddress" % "0.2.0"
+resolvers += Resolver.bintrayRepo("hmrc", "releases")
+
+libraryDependencies += "uk.gov.hmrc" %% "emailaddress" % "0.3.0"
 ```
 
 
