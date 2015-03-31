@@ -9,7 +9,7 @@ object HmrcBuild extends Build {
   import uk.gov.hmrc.{SbtBuildInfo, ShellPrompt}
 
   val appName = "emailaddress"
-  val appVersion = "0.3.0"
+  val appVersion = "0.4.0-SNAPSHOT"
 
   lazy val emailaddress = Project(appName, file("."))
     .settings(version := appVersion)
