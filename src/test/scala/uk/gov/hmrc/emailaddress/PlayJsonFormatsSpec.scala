@@ -4,6 +4,9 @@ import org.scalatest.{WordSpec, Matchers}
 import play.api.libs.json.{Json, JsError, JsSuccess, JsString}
 
 class PlayJsonFormatsSpec extends WordSpec with Matchers {
+
+  implicit val format = PlayJsonFormats.emailAddressFormat
+
   "Reading an EmailAddress from JSON" should {
 
     "work for a valid email address" in {
