@@ -55,6 +55,16 @@ class EmailAddressSpec extends WordSpec with Matchers with PropertyChecks with E
     "be extractable from an address" in forAll (validMailbox, validDomain) { (mailbox, domain) =>
       EmailAddress(s"$mailbox@$domain").domain should (be (a[Domain]) and have ('value (domain)))
     }
+    "be creatable for a valid domain" in forAll (validDomain) { domain =>
+      EmailAddress.Domain(domain) should (be (a[Domain]) and have ('value (domain)))
+    }
+    "not create for invalid domains" in {
+      an [IllegalArgumentException] should be thrownBy EmailAddress.Domain("")
+      an [IllegalArgumentException] should be thrownBy EmailAddress.Domain("e.")
+      an [IllegalArgumentException] should be thrownBy EmailAddress.Domain(".uk")
+      an [IllegalArgumentException] should be thrownBy EmailAddress.Domain(".com")
+      an [IllegalArgumentException] should be thrownBy EmailAddress.Domain("*domain")
+    }
     "compare equal if identical" in forAll (validDomain, validMailbox, validMailbox) { (domain, mailboxA, mailboxB) =>
       val exampleA = EmailAddress(s"$mailboxA@$domain")
       val exampleB = EmailAddress(s"$mailboxB@$domain")

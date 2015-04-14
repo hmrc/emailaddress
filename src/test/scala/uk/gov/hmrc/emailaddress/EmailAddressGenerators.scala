@@ -3,8 +3,15 @@ package uk.gov.hmrc.emailaddress
 import org.scalacheck.Gen
 
 trait EmailAddressGenerators {
-  val validMailbox = Gen.alphaStr.suchThat(!_.isEmpty)
-  val validDomain = Gen.nonEmptyListOf(Gen.alphaStr.suchThat(!_.isEmpty)).map(_.mkString("."))
+  val nonEmptyString = Gen.nonEmptyListOf(Gen.alphaChar).map(_.mkString(""))
+
+  val validMailbox = nonEmptyString
+
+  val validDomain = for {
+    tld <- nonEmptyString
+    otherParts <- Gen.listOf(nonEmptyString)
+  } yield (otherParts :+ tld).mkString(".")
+
   val validEmailAddresses = for {
     mailbox <- validMailbox
     domain <- validDomain
