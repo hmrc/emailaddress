@@ -43,5 +43,11 @@ class EmailAddressSpec extends WordSpec with Matchers with PropertyChecks with E
     "be obfuscatable" in {
       EmailAddress("abcdef@example.com").obfuscated.value should be("a****f@example.com")
     }
+    "have a local part" in forAll (validMailbox, validDomain) { (mailbox, domain) =>
+      EmailAddress(s"$mailbox@$domain").mailbox should be (mailbox)
+    }
+    "have a domain" in forAll (validMailbox, validDomain) { (mailbox, domain) =>
+      EmailAddress(s"$mailbox@$domain").mailbox should be (mailbox)
+    }
   }
 }

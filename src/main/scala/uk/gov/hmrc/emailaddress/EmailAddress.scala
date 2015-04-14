@@ -2,7 +2,11 @@ package uk.gov.hmrc.emailaddress
 
 
 case class EmailAddress(value: String) {
-  require(EmailAddress.isValid(value), s"'$value' is not a valid email address")
+
+  val (mailbox, domain): (String, String) = value match {
+    case EmailAddress.validEmail(m, d) => (m, d)
+    case invalidEmail => throw new IllegalArgumentException(s"'$invalidEmail' is not a valid email address")
+  }
 
   override def toString: String = value
 
