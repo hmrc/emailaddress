@@ -3,15 +3,19 @@ package uk.gov.hmrc.emailaddress
 
 case class EmailAddress(value: String) {
 
-  val (mailbox, domain): (String, String) = value match {
-    case EmailAddress.validEmail(m, d) => (m, d)
+  val (mailbox, domain): (Mailbox, Domain) = value match {
+    case EmailAddress.validEmail(m, d) => (Mailbox(m), Domain(d))
     case invalidEmail => throw new IllegalArgumentException(s"'$invalidEmail' is not a valid email address")
   }
 
   override def toString: String = value
 
   lazy val obfuscated = ObfuscatedEmailAddress.apply(value)
+
+  case class Mailbox private[EmailAddress] (value: String)
+  case class Domain private[EmailAddress] (value: String)
 }
+
 
 object EmailAddress {
   final private[emailaddress] val validEmail = """\b([a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+)@([a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*)\b""".r
