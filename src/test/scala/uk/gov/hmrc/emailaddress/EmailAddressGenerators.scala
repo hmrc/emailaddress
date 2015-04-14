@@ -1,10 +1,10 @@
 package uk.gov.hmrc.emailaddress
 
+import org.scalacheck.Gen._
 
 trait EmailAddressGenerators {
-  import org.scalacheck.Gen._
 
-  val nonEmptyString = nonEmptyListOf(alphaChar).map(_.mkString(""))
+  val nonEmptyString = nonEmptyListOf(alphaChar).map(_.mkString)
 
   val validMailbox = nonEmptyString
 
