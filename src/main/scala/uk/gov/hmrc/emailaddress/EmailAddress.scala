@@ -1,16 +1,22 @@
 package uk.gov.hmrc.emailaddress
 
-case class EmailAddress(value: String) {
+trait StringValue {
+  val value: String
+  override def toString: String = value
+}
+object StringValue {
+  import scala.language.implicitConversions
+  implicit def stringValueToString(e: StringValue): String = e.value
+}
+
+case class EmailAddress(value: String) extends StringValue {
 
   val (mailbox, domain): (EmailAddress.Mailbox, EmailAddress.Domain) = value match {
     case EmailAddress.validEmail(m, d) => (EmailAddress.Mailbox(m), EmailAddress.Domain(d))
     case invalidEmail => throw new IllegalArgumentException(s"'$invalidEmail' is not a valid email address")
   }
 
-  override def toString: String = value
-
   lazy val obfuscated = ObfuscatedEmailAddress.apply(value)
-
 }
 
 object EmailAddress {
@@ -22,16 +28,13 @@ object EmailAddress {
     case invalidEmail => false
   }
 
-  case class Mailbox private[EmailAddress] (value: String)
-  case class Domain(value: String) {
+  case class Mailbox private[EmailAddress] (value: String) extends StringValue
+  case class Domain(value: String) extends StringValue {
     value match {
       case EmailAddress.validDomain(_) => //
       case invalidDomain => throw new IllegalArgumentException(s"'$invalidDomain' is not a valid email domain")
     }
   }
-
-  import scala.language.implicitConversions
-  implicit def emailToString(e: EmailAddress): String = e.value
 }
 
 object PlayJsonFormats {

@@ -9,8 +9,8 @@ Scala micro-library for typing, validating and obfuscating email addresses
 The `EmailAddress` class will only accept valid addresses:
 
 ```scala
-scala> import emailaddress._
-import emailaddress._
+scala> import uk.gov.hmrc.emailaddress._
+import uk.gov.hmrc.emailaddress._
 
 scala> EmailAddress("example@test.com")
 res0: uk.gov.hmrc.emailaddress.EmailAddress = example@test.com
@@ -28,6 +28,11 @@ res2: Boolean = true
 scala> EmailAddress.isValid("not_a_meaningful_address")
 res3: Boolean = false
 ```
+
+### Accessing the domain and mailbox
+
+You can access the mailbox and domain of a given address:
+
 
 ### Obfuscation
 Addresses are obfuscated by starring out all of their mailbox part, apart from the first and last letters:

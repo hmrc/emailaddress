@@ -75,6 +75,13 @@ class EmailAddressSpec extends WordSpec with Matchers with PropertyChecks with E
       val exampleB = EmailAddress(s"$mailbox@$domainB")
       exampleA.domain should not equal exampleB.domain
     }
+    "toString to a String of the domain" in {
+      Domain("domain.com").toString should be ("domain.com")
+    }
+    "implicitly convert to a String of the domain" in {
+      val e: String = Domain("domain.com")
+      e should be ("domain.com")
+    }
   }
 
   "A email address mailbox" should {
@@ -90,6 +97,13 @@ class EmailAddressSpec extends WordSpec with Matchers with PropertyChecks with E
       val exampleA = EmailAddress(s"$mailboxA@$domain")
       val exampleB = EmailAddress(s"$mailboxB@$domain")
       exampleA.mailbox should not equal exampleB.mailbox
+    }
+    "toString to a String of the domain" in {
+      EmailAddress("test@domain.com").mailbox.toString should be ("test")
+    }
+    "implicitly convert to a String of the domain" in {
+      val e: String = EmailAddress("test@domain.com").mailbox
+      e should be ("test")
     }
   }
 }
