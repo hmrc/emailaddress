@@ -1,10 +1,11 @@
 package uk.gov.hmrc.emailaddress
 
 
+
 case class EmailAddress(value: String) {
 
-  val (mailbox, domain): (Mailbox, Domain) = value match {
-    case EmailAddress.validEmail(m, d) => (Mailbox(m), Domain(d))
+  val (mailbox, domain): (EmailAddress.Mailbox, EmailAddress.Domain) = value match {
+    case EmailAddress.validEmail(m, d) => (EmailAddress.Mailbox(m), EmailAddress.Domain(d))
     case invalidEmail => throw new IllegalArgumentException(s"'$invalidEmail' is not a valid email address")
   }
 
@@ -12,8 +13,6 @@ case class EmailAddress(value: String) {
 
   lazy val obfuscated = ObfuscatedEmailAddress.apply(value)
 
-  case class Mailbox private[EmailAddress] (value: String)
-  case class Domain private[EmailAddress] (value: String)
 }
 
 
@@ -25,6 +24,10 @@ object EmailAddress {
     case invalidEmail => false
   }
 
+  case class Mailbox private[EmailAddress] (value: String)
+  case class Domain private[EmailAddress] (value: String)
+
+  import scala.language.implicitConversions
   implicit def emailToString(e: EmailAddress): String = e.value
 }
 
