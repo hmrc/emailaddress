@@ -9,8 +9,8 @@ Scala micro-library for typing, validating and obfuscating email addresses
 The `EmailAddress` class will only accept valid addresses:
 
 ```scala
-scala> import emailaddress._
-import emailaddress._
+scala> import uk.gov.hmrc.emailaddress._
+import uk.gov.hmrc.emailaddress._
 
 scala> EmailAddress("example@test.com")
 res0: uk.gov.hmrc.emailaddress.EmailAddress = example@test.com
@@ -26,6 +26,28 @@ scala> EmailAddress.isValid("example@test.com")
 res2: Boolean = true
 
 scala> EmailAddress.isValid("not_a_meaningful_address")
+res3: Boolean = false
+```
+
+### Accessing the domain and mailbox
+
+You can access the mailbox and domain of a given address:
+
+```scala
+scala> EmailAddress("example@test.com").domain
+res0: uk.gov.hmrc.emailaddress.EmailAddress.Domain = test.com
+
+scala> EmailAddress("example@test.com").mailbox
+res1: uk.gov.hmrc.emailaddress.EmailAddress.Mailbox = example
+```
+
+These compare equal as you might expect:
+
+```scala
+scala> EmailAddress("example@test.com").domain == EmailAddress("another@test.com").domain
+res2: Boolean = true
+
+scala> EmailAddress("example@test.com").domain == EmailAddress("another@test.co.uk").domain
 res3: Boolean = false
 ```
 
@@ -53,7 +75,7 @@ res6: uk.gov.hmrc.emailaddress.ObfuscatedEmailAddress = e*****e@test.com
 
 
 ### Converting back to `String`
-EmailAddress classes `toString` and implicitly convert to `String`s nicely:
+All classes `toString` and implicitly convert to `String`s nicely:
 
 ```scala
 scala> val someString: String = EmailAddress("example@test.com")
@@ -67,6 +89,18 @@ someString: String = e*****e@test.com
 
 scala> val someString = ObfuscatedEmailAddress("example@test.com").toString
 someString: String = e*****e@test.com
+
+scala> EmailAddress("example@test.com").domain.toString
+res4: String = test.com
+
+scala> val s: String = EmailAddress("example@test.com").domain
+s: String = test.com
+
+scala> EmailAddress("example@test.com").mailbox.toString
+res5: String = example
+
+scala> val s: String = EmailAddress("example@test.com").mailbox
+s: String = example
 ```
 
 ### Installing
