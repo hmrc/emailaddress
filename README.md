@@ -110,7 +110,7 @@ Include the following dependency in your SBT build
 ```scala
 resolvers += Resolver.bintrayRepo("hmrc", "releases")
 
-libraryDependencies += "uk.gov.hmrc" %% "emailaddress" % "<[INSERT VERSION]("https://bintray.com/hmrc/releases/emailaddress/_latestVersion")>"
+libraryDependencies += "uk.gov.hmrc" %% "emailaddress" % "<INSERT VERSION>"
 ```
 
 ## License ##
