@@ -30,7 +30,7 @@ private object AppDependencies {
   import play.core.PlayVersion
 
   val compile = Seq(
-    "com.typesafe.play" %% "play" % PlayVersion.current % "provided",
+    "com.typesafe.play" %% "play" % PlayVersion.current % "provided"
   )
 
   trait TestDependencies {
