@@ -18,8 +18,8 @@ object HmrcBuild extends Build {
       targetJvm := "jvm-1.7",
       libraryDependencies ++= AppDependencies(),
       resolvers := Seq(
-        Resolver.bintrayRepo("hmrc", "releases"),
-        "typesafe-releases" at "http://repo.typesafe.com/typesafe/releases/"
+        "typesafe-releases" at "http://repo.typesafe.com/typesafe/releases/",
+        Resolver.bintrayRepo("hmrc", "releases")
       ),
       crossScalaVersions := Seq("2.11.5")
     )
@@ -31,8 +31,7 @@ private object AppDependencies {
   import play.core.PlayVersion
 
   val compile = Seq(
-    "com.typesafe.play" %% "play" % PlayVersion.current % "provided",
-    "com.typesafe.play" %% "play-json" % PlayVersion.current % "provided"
+    "com.typesafe.play" %% "play" % PlayVersion.current % "provided"
   )
 
   trait TestDependencies {
