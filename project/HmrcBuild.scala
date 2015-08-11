@@ -18,8 +18,9 @@ object HmrcBuild extends Build {
       targetJvm := "jvm-1.7",
       libraryDependencies ++= AppDependencies(),
       resolvers := Seq(
+        Resolver.bintrayRepo("hmrc", "releases"),
         "typesafe-releases" at "http://repo.typesafe.com/typesafe/releases/",
-        Resolver.bintrayRepo("hmrc", "releases")
+        "Sonatype" at "http://oss.sonatype.org/content/groups/public/"
       ),
       crossScalaVersions := Seq("2.11.5")
     )
