@@ -15,13 +15,16 @@
  */
 
 import sbt._
-import sbt.Keys._
+import Keys._
+import uk.gov.hmrc.SbtAutoBuildPlugin
+import uk.gov.hmrc.versioning.SbtGitVersioning
 
 object HmrcBuild extends Build {
 
-  import uk.gov.hmrc.DefaultBuildSettings._
-  import uk.gov.hmrc.SbtAutoBuildPlugin
-  import uk.gov.hmrc.versioning.SbtGitVersioning
+  import uk.gov.hmrc.DefaultBuildSettings
+  import DefaultBuildSettings._
+  import BuildDependencies._
+  import uk.gov.hmrc.{SbtBuildInfo, ShellPrompt}
 
   val appName = "emailaddress"
 
@@ -31,29 +34,30 @@ object HmrcBuild extends Build {
       targetJvm := "jvm-1.7",
       libraryDependencies ++= AppDependencies(),
       resolvers := Seq(
-        "Sonatype" at "http://oss.sonatype.org/content/groups/public/",
-        Resolver.bintrayRepo("hmrc", "releases")
+        Resolver.bintrayRepo("hmrc", "releases"),
+        "typesafe-releases" at "http://repo.typesafe.com/typesafe/releases/"
       ),
-      crossScalaVersions := Seq("2.11.7")
+      crossScalaVersions := Seq("2.11.5")
     )
+
 }
 
 private object AppDependencies {
 
   val compile = Seq(
-    "com.typesafe.play" %% "play" % "2.3.9" % "provided"
+  "com.typesafe.play" %% "play" % "2.3.9" % "provided"
   )
 
   trait TestDependencies {
     lazy val scope: String = "test"
-    lazy val test : Seq[ModuleID] = ???
+    lazy val test: Seq[ModuleID] = ???
   }
 
   object Test {
     def apply() = new TestDependencies {
       override lazy val test = Seq(
-        "org.pegdown" % "pegdown" % "1.4.2" % scope,
         "org.scalatest" %% "scalatest" % "2.2.2" % scope,
+        "org.pegdown" % "pegdown" % "1.4.2" % scope,
         "org.scalacheck" %% "scalacheck" % "1.12.1" % scope
       )
     }.test
