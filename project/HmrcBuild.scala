@@ -15,7 +15,6 @@ object HmrcBuild extends Build {
   lazy val emailaddress = Project(appName, file("."))
     .enablePlugins(SbtAutoBuildPlugin, SbtGitVersioning)
     .settings(
-      targetJvm := "jvm-1.7",
       libraryDependencies ++= AppDependencies(),
       resolvers := Seq(
         Resolver.bintrayRepo("hmrc", "releases"),
