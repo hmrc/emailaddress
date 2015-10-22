@@ -28,7 +28,7 @@ case class EmailAddress(value: String) extends StringValue {
 
 object EmailAddress {
   final private[emailaddress] val validDomain = """\b([a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*)\b""".r
-  final private[emailaddress] val validEmail = """\b([a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+)@([a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*)\b""".r
+  final private[emailaddress] val validEmail = """\b([a-zA-Z0-9.!#$%&’'*+/=?^_`{|}~-]+)@([a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*)\b""".r
 
   def isValid(email: String) = email match {
     case validEmail(_,_) => true
