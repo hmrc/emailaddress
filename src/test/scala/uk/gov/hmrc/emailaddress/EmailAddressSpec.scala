@@ -24,13 +24,25 @@ class EmailAddressSpec extends WordSpec with Matchers with PropertyChecks with E
 
   "Creating an EmailAddress class" should {
     "work for a valid email" in {
-      forAll (validEmailAddresses) { address =>
+      forAll(validEmailAddresses) { address =>
         EmailAddress(address).value should be(address)
       }
     }
 
     "throw an exception for an invalid email" in {
       an [IllegalArgumentException] should be thrownBy { EmailAddress("sausages") }
+    }
+
+    "throw an exception for an valid email starting with invalid characters" in {
+      forAll(validEmailAddresses) { address =>
+        an [IllegalArgumentException] should be thrownBy { EmailAddress("§"+ address) }
+      }
+    }
+
+    "throw an exception for an valid email ending with invalid characters" in {
+      forAll(validEmailAddresses) { address =>
+        an [IllegalArgumentException] should be thrownBy { EmailAddress(address + "§") }
+      }
     }
 
     "throw an exception for an empty email" in {
@@ -101,6 +113,7 @@ class EmailAddressSpec extends WordSpec with Matchers with PropertyChecks with E
   }
 
   "A email address mailbox" should {
+
     "be extractable from an address" in forAll (validMailbox, validDomain) { (mailbox, domain) =>
       EmailAddress(s"$mailbox@$domain").mailbox should (be (a[Mailbox]) and have ('value (mailbox)))
     }

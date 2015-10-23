@@ -17,17 +17,25 @@
 package uk.gov.hmrc.emailaddress
 
 import org.scalacheck.Gen._
+import org.scalacheck.{Gen, Shrink}
 
 trait EmailAddressGenerators {
+  def noShrink[T] = Shrink[T](_ => Stream.empty)
+  implicit val dontShrinkStrings: Shrink[String] = noShrink[String]
 
-  val nonEmptyString = nonEmptyListOf(alphaChar).map(_.mkString)
+  def nonEmptyString(char: Gen[Char]) =
+    nonEmptyListOf(char)
+      .map(_.mkString)
+      .suchThat(!_.isEmpty)
 
-  val validMailbox = nonEmptyString
+  def chars(chars: String) = Gen.choose(0, chars.length - 1).map(chars.charAt)
+
+  val validMailbox = nonEmptyString(oneOf(alphaChar, chars(".!#$%&’*+/=?^_`{|}~-")))
 
   val validDomain = for {
-    topLevelDomain <- nonEmptyString
-    otherParts <- listOf(nonEmptyString)
-  } yield (otherParts :+ topLevelDomain).mkString
+    topLevelDomain <- nonEmptyString(alphaChar)
+    otherParts <- listOf(nonEmptyString(alphaChar))
+  } yield (otherParts :+ topLevelDomain).mkString(".")
 
   val validEmailAddresses = for {
     mailbox <- validMailbox
