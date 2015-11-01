@@ -22,6 +22,6 @@ object StringValue {
 }
 
 trait StringValue {
-  val value: String
+  def value: String
   override def toString: String = value
 }
