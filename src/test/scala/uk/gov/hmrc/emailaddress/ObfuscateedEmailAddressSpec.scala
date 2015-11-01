@@ -26,21 +26,25 @@ class ObfuscateedEmailAddressSpec extends WordSpec with Matchers with PropertyCh
       ObfuscatedEmailAddress("abcdef@example.com").value should be("a****f@example.com")
     }
 
-    "work for a valid email address with a three letter mailbox" in {
-      ObfuscatedEmailAddress("abc@example.com").value should be("a*c@example.com")
+    "work for a valid email address with a single letter mailbox" in {
+      ObfuscatedEmailAddress("a@example.com").value should be("*@example.com")
     }
 
     "work for a valid email address with a two letter mailbox" in {
       ObfuscatedEmailAddress("ab@example.com").value should be("**@example.com")
     }
 
-    "work for a valid email address with a single letter mailbox" in {
-      ObfuscatedEmailAddress("a@example.com").value should be("*@example.com")
+    "work for a valid email address with a three letter mailbox" in {
+      ObfuscatedEmailAddress("abc@example.com").value should be("a*c@example.com")
     }
 
-    "work for valid email addresses" in {
-      forAll (validEmailAddresses) { address =>
-        ObfuscatedEmailAddress(address).value should ((not be address) and include("*"))
+    "do nothing for a valid email address with a three letter mailbox with * in the middle" in {
+      ObfuscatedEmailAddress("a*c@example.com").value should be("a*c@example.com")
+    }
+
+    "work for valid email addresses with a mailbox longer than three chars" in {
+      forAll (validEmailAddresses(mailbox = validMailbox.suchThat(_.length > 3))) { address =>
+        EmailAddress(address).obfuscated.value should ((not be address) and include("*"))
       }
     }
 

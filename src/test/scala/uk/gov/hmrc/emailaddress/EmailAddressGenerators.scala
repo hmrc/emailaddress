@@ -30,15 +30,16 @@ trait EmailAddressGenerators {
 
   def chars(chars: String) = Gen.choose(0, chars.length - 1).map(chars.charAt)
 
-  val validMailbox = nonEmptyString(oneOf(alphaChar, chars(".!#$%&’*+/=?^_`{|}~-")))
+  val validMailbox = nonEmptyString(oneOf(alphaChar, chars(".!#$%&’*+/=?^_`{|}~-"))).label("mailbox")
 
-  val validDomain = for {
+  val validDomain = (for {
     topLevelDomain <- nonEmptyString(alphaChar)
     otherParts <- listOf(nonEmptyString(alphaChar))
-  } yield (otherParts :+ topLevelDomain).mkString(".")
+  } yield (otherParts :+ topLevelDomain).mkString(".")).label("domain")
 
-  val validEmailAddresses = for {
-    mailbox <- validMailbox
-    domain <- validDomain
-  } yield s"$mailbox@$domain"
+  def validEmailAddresses(mailbox: Gen[String] = validMailbox, domain: Gen[String] = validDomain) =
+    for {
+      mailbox <- mailbox
+      domain <- domain
+    } yield s"$mailbox@$domain"
 }
