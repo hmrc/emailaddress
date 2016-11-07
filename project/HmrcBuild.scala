@@ -28,7 +28,7 @@ object HmrcBuild extends Build {
 private object AppDependencies {
 
   val compile = Seq(
-  "com.typesafe.play" %% "play-json" % "2.3.8" % "provided"
+  "com.typesafe.play" %% "play-json" % "2.5.8" % "provided"
   )
 
   trait TestDependencies {
@@ -39,7 +39,7 @@ private object AppDependencies {
   object Test {
     def apply() = new TestDependencies {
       override lazy val test = Seq(
-        "org.scalatest" %% "scalatest" % "2.2.2" % scope,
+        "org.scalatest" %% "scalatest" % "2.2.6" % scope,
         "org.pegdown" % "pegdown" % "1.4.2" % scope,
         "org.scalacheck" %% "scalacheck" % "1.12.1" % scope
       )
