@@ -1,14 +1,9 @@
+import sbt.Keys._
 import sbt._
-import Keys._
 import uk.gov.hmrc.SbtAutoBuildPlugin
 import uk.gov.hmrc.versioning.SbtGitVersioning
 
 object HmrcBuild extends Build {
-
-  import uk.gov.hmrc.DefaultBuildSettings
-  import DefaultBuildSettings._
-  import BuildDependencies._
-  import uk.gov.hmrc.{SbtBuildInfo, ShellPrompt}
 
   val appName = "emailaddress"
 
@@ -28,7 +23,7 @@ object HmrcBuild extends Build {
 private object AppDependencies {
 
   val compile = Seq(
-  "com.typesafe.play" %% "play-json" % "2.5.8" % "provided"
+  "com.typesafe.play" %% "play-json" % "2.5.12" % "provided"
   )
 
   trait TestDependencies {
