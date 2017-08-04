@@ -3,6 +3,10 @@ val appName = "emailaddress"
 lazy val emailaddress = Project(appName, file("."))
   .enablePlugins(SbtAutoBuildPlugin, SbtGitVersioning)
   .settings(
+    scalacOptions ++= Seq(
+      "-feature",
+      "-language:implicitConversions"
+    ),
     libraryDependencies ++= Seq(
       "com.typesafe.play" %% "play-json" % "2.5.12" % Provided,
       "org.scalatest" %% "scalatest" % "2.2.6" % Test,
