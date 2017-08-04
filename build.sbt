@@ -13,5 +13,5 @@ lazy val emailaddress = Project(appName, file("."))
       Resolver.bintrayRepo("hmrc", "releases"),
       "typesafe-releases" at "http://repo.typesafe.com/typesafe/releases/"
     ),
-    crossScalaVersions := Seq("2.11.5")
+    crossScalaVersions := Seq("2.11.11", "2.12.3")
   )
