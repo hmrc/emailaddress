@@ -8,10 +8,10 @@ lazy val emailaddress = Project(appName, file("."))
       "-language:implicitConversions"
     ),
     libraryDependencies ++= Seq(
-      "com.typesafe.play" %% "play-json" % "2.5.12" % Provided,
-      "org.scalatest" %% "scalatest" % "2.2.6" % Test,
-      "org.pegdown" % "pegdown" % "1.4.2" % Test,
-      "org.scalacheck" %% "scalacheck" % "1.12.1" % Test
+      "com.typesafe.play" %% "play-json" % "2.6.2" % Provided,
+      "org.scalatest" %% "scalatest" % "3.0.3" % Test,
+      "org.pegdown" % "pegdown" % "1.6.0" % Test,
+      "org.scalacheck" %% "scalacheck" % "1.13.5" % Test
     ),
     resolvers := Seq(
       Resolver.bintrayRepo("hmrc", "releases"),
