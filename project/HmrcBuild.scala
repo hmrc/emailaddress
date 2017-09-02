@@ -1,5 +1,6 @@
 import sbt.Keys._
 import sbt._
+import uk.gov.hmrc.DefaultBuildSettings.targetJvm
 import uk.gov.hmrc.SbtAutoBuildPlugin
 import uk.gov.hmrc.versioning.SbtGitVersioning
 
@@ -11,11 +12,13 @@ object HmrcBuild extends Build {
     .enablePlugins(SbtAutoBuildPlugin, SbtGitVersioning)
     .settings(
       libraryDependencies ++= AppDependencies(),
-      resolvers := Seq(
-        Resolver.bintrayRepo("hmrc", "releases"),
-        "typesafe-releases" at "http://repo.typesafe.com/typesafe/releases/"
-      ),
-      crossScalaVersions := Seq("2.11.5")
+      targetJvm := "jvm-1.8",
+      scalaVersion := "2.12.3",
+      crossScalaVersions := Seq("2.12.3"),
+        resolvers := Seq(
+          Resolver.bintrayRepo("hmrc", "releases"),
+          Resolver.typesafeRepo("releases")
+      )
     )
 
 }
@@ -23,7 +26,7 @@ object HmrcBuild extends Build {
 private object AppDependencies {
 
   val compile = Seq(
-  "com.typesafe.play" %% "play-json" % "2.5.12" % "provided"
+    "com.typesafe.play" %% "play-json" % "2.6.3" % "provided"
   )
 
   trait TestDependencies {
@@ -34,9 +37,9 @@ private object AppDependencies {
   object Test {
     def apply() = new TestDependencies {
       override lazy val test = Seq(
-        "org.scalatest" %% "scalatest" % "2.2.6" % scope,
-        "org.pegdown" % "pegdown" % "1.4.2" % scope,
-        "org.scalacheck" %% "scalacheck" % "1.12.1" % scope
+        "org.scalatest" %% "scalatest" % "3.0.3" % scope,
+        "org.pegdown" % "pegdown" % "1.6.0" % scope,
+        "org.scalacheck" %% "scalacheck" % "1.13.4" % scope
       )
     }.test
   }
