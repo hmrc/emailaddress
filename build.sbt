@@ -3,6 +3,7 @@ val appName = "emailaddress"
 lazy val emailaddress = Project(appName, file("."))
   .enablePlugins(SbtAutoBuildPlugin, SbtGitVersioning, SbtArtifactory)
   .settings(majorVersion := 3)
+  .settings(makePublicallyAvailableOnBintray := true)
   .settings(
     scalacOptions ++= Seq(
       "-feature",
