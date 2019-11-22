@@ -30,7 +30,7 @@ trait EmailAddressGenerators {
 
   def chars(chars: String) = Gen.choose(0, chars.length - 1).map(chars.charAt)
 
-  val validMailbox = nonEmptyString(oneOf(alphaChar, chars(".!#$%&’'*+/=?^_`{|}~-"))).label("mailbox")
+  val validMailbox = nonEmptyString(oneOf(alphaChar, chars("!#$%&’'*+/=?^_`{|}~-"))).label("mailbox")
 
   val validDomain = (for {
     topLevelDomain <- nonEmptyString(alphaChar)
