@@ -27,7 +27,6 @@ class EmailAddressSpec extends WordSpec with Matchers with PropertyChecks with E
       forAll(validEmailAddresses()) { address =>
         EmailAddress(address).value should be(address)
       }
-
       validEmailAddressStandardList.foreach{ address =>
         EmailAddress(address).value should be(address)
       }
@@ -49,6 +48,23 @@ class EmailAddressSpec extends WordSpec with Matchers with PropertyChecks with E
     "works for more dots in email" in {
       EmailAddress("example@e.example.co.uk").value should be("example@e.example.co.uk")
       EmailAddress("ex.am.ple@example.com").value should be("ex.am.ple@example.com")
+    }
+
+    "throw an exception for an email that's not considered standard" in {
+      an [IllegalArgumentException] should be thrownBy {EmailAddress("plainaddress")}
+      an [IllegalArgumentException] should be thrownBy {EmailAddress("#@%^%#$@#$@#.com")}
+      an [IllegalArgumentException] should be thrownBy {EmailAddress("@domain.com")}
+      an [IllegalArgumentException] should be thrownBy {EmailAddress("Joe Smith <email@domain.com>")}
+      an [IllegalArgumentException] should be thrownBy {EmailAddress("email.domain.com")}
+      an [IllegalArgumentException] should be thrownBy {EmailAddress("email@domain@domain.com")}
+      an [IllegalArgumentException] should be thrownBy {EmailAddress(".email@domain.com")}
+      an [IllegalArgumentException] should be thrownBy {EmailAddress("email.@domain.com")}
+      an [IllegalArgumentException] should be thrownBy {EmailAddress("email..email@domain.com")}
+      an [IllegalArgumentException] should be thrownBy {EmailAddress("あいうえお@domain.com")}
+      an [IllegalArgumentException] should be thrownBy {EmailAddress("email@domain.com (Joe Smith)")}
+      an [IllegalArgumentException] should be thrownBy {EmailAddress("email@domain..com")}
+      an [IllegalArgumentException] should be thrownBy {EmailAddress("email@domain")}
+      an [IllegalArgumentException] should be thrownBy {EmailAddress("email@-domain.com")}
     }
 
     "throw an exception for an email that starts with .(dot)" in {

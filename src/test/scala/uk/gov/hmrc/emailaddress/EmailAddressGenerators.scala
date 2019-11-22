@@ -18,6 +18,7 @@ package uk.gov.hmrc.emailaddress
 
 import org.scalacheck.Gen._
 import org.scalacheck.{Gen, Shrink}
+import scala.util.Random
 
 trait EmailAddressGenerators {
   def noShrink[T] = Shrink[T](_ => Stream.empty)
@@ -32,10 +33,12 @@ trait EmailAddressGenerators {
 
   val validMailbox = nonEmptyString(oneOf(alphaChar, chars("!#$%&’'*+/=?^_`{|}~-"))).label("mailbox")
 
+  val currentDomain = Random.shuffle(Seq(".com", ".co.uk", ".io", ".london", ".org", ".FOUNDATION")).head
+
   val validDomain: Gen[String] = (for {
     topLevelDomain <- nonEmptyString(alphaChar)
     otherParts <- listOf(nonEmptyString(alphaChar))
-  } yield (otherParts :+ topLevelDomain).mkString(".")).label("domain")
+  } yield (otherParts :+ topLevelDomain + currentDomain).mkString(".")).label("domain")
 
   def validEmailAddresses(mailbox: Gen[String] = validMailbox, domain: Gen[String] = validDomain) =
     for {
@@ -58,8 +61,4 @@ trait EmailAddressGenerators {
     "email@domain.co.jp",
     "firstname-lastname@domain.com"
   )
-
-
-
-
 }
