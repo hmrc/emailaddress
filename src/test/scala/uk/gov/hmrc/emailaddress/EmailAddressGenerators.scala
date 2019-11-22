@@ -32,7 +32,7 @@ trait EmailAddressGenerators {
 
   val validMailbox = nonEmptyString(oneOf(alphaChar, chars("!#$%&’'*+/=?^_`{|}~-"))).label("mailbox")
 
-  val validDomain = (for {
+  val validDomain: Gen[String] = (for {
     topLevelDomain <- nonEmptyString(alphaChar)
     otherParts <- listOf(nonEmptyString(alphaChar))
   } yield (otherParts :+ topLevelDomain).mkString(".")).label("domain")
@@ -42,4 +42,24 @@ trait EmailAddressGenerators {
       mailbox <- mailbox
       domain <- domain
     } yield s"$mailbox@$domain"
+
+  def validEmailAddressStandardList = List(
+    "email@domain.com",
+    "firstname.lastname@domain.com",
+    "email@subdomain.domain.com",
+    "firstname+lastname@domain.com",
+    "email@123.123.123.123",
+    "email@[123.123.123.123]",
+    "\"email\"@domain.com",
+    "1234567890@domain.com",
+    "email@domain-one.com",
+    "_______@domain.com",
+    "email@domain.name",
+    "email@domain.co.jp",
+    "firstname-lastname@domain.com"
+  )
+
+
+
+
 }

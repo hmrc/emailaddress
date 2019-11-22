@@ -27,6 +27,10 @@ class EmailAddressSpec extends WordSpec with Matchers with PropertyChecks with E
       forAll(validEmailAddresses()) { address =>
         EmailAddress(address).value should be(address)
       }
+
+      validEmailAddressStandardList.foreach{ address =>
+        EmailAddress(address).value should be(address)
+      }
     }
 
     "works for worlds longest active email address" in {
