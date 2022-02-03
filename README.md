@@ -62,8 +62,7 @@ Unless there are only two letters:
 
 ```scala
 scala> ObfuscatedEmailAddress("ex@test.com")
-res7: uk.gov.hmrc.emailaddress.ObfuscatedEmailAddress = **@test.com```
-
+res7: uk.gov.hmrc.emailaddress.ObfuscatedEmailAddress = **@test.com
 ```
 
 You can also create them directly from an `EmailAddress`:
