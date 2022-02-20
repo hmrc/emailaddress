@@ -3,6 +3,7 @@ val appName = "emailaddress"
 lazy val emailaddress = Project(appName, file("."))
   .settings(majorVersion := 3)
   .settings(isPublicArtefact := true)
+  .settings(ScoverageSettings.apply(): _*)
   .settings(
     scalacOptions ++= Seq(
       "-feature",
