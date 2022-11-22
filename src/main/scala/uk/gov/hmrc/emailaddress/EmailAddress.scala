@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 HM Revenue & Customs
+ * Copyright 2022 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,23 +23,23 @@ case class EmailAddress(value: String) extends StringValue {
     case invalidEmail => throw new IllegalArgumentException(s"'$invalidEmail' is not a valid email address")
   }
 
-  lazy val obfuscated = ObfuscatedEmailAddress.apply(value)
+  lazy val obfuscated: ObfuscatedEmailAddress = ObfuscatedEmailAddress.apply(value)
 }
 
 object EmailAddress {
   final private[emailaddress] val validDomain = """^([a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*)$""".r
   final private[emailaddress] val validEmail = """^([a-zA-Z0-9.!#$%&’'*+/=?^_`{|}~-]+)@([a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*)$""".r
 
-  def isValid(email: String) = email match {
+  def isValid(email: String): Boolean = email match {
     case validEmail(_,_) => true
-    case invalidEmail => false
+    case _               => false
   }
 
   case class Mailbox private[EmailAddress] (value: String) extends StringValue
   case class Domain(value: String) extends StringValue {
     value match {
       case EmailAddress.validDomain(_) => //
-      case invalidDomain => throw new IllegalArgumentException(s"'$invalidDomain' is not a valid email domain")
+      case invalidDomain               => throw new IllegalArgumentException(s"'$invalidDomain' is not a valid email domain")
     }
   }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 HM Revenue & Customs
+ * Copyright 2022 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,11 +16,13 @@
 
 package uk.gov.hmrc.emailaddress
 
-import org.scalatest.prop.PropertyChecks
-import org.scalatest.{Matchers, WordSpec}
-import uk.gov.hmrc.emailaddress.EmailAddress.{Mailbox, Domain}
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
+import uk.gov.hmrc.emailaddress.EmailAddress.{Domain, Mailbox}
+import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 
-class EmailAddressSpec extends WordSpec with Matchers with PropertyChecks with EmailAddressGenerators {
+
+class EmailAddressSpec extends AnyWordSpec with ScalaCheckPropertyChecks with Matchers with EmailAddressGenerators {
 
   "Creating an EmailAddress class" should {
     "work for a valid email" in {
@@ -74,17 +76,17 @@ class EmailAddressSpec extends WordSpec with Matchers with PropertyChecks with E
     }
     "have a local part" in forAll (validMailbox, validDomain) { (mailbox, domain) =>
       val exampleAddr = EmailAddress(s"$mailbox@$domain")
-      exampleAddr.mailbox should (be (a[Mailbox]) and have ('value (mailbox)))
-      exampleAddr.domain should (be (a[Domain]) and have ('value (domain)))
+      exampleAddr.mailbox should (be (a[Mailbox]) and have (Symbol("value") (mailbox)))
+      exampleAddr.domain should (be (a[Domain]) and have (Symbol("value") (domain)))
     }
   }
 
   "A email address domain" should {
     "be extractable from an address" in forAll (validMailbox, validDomain) { (mailbox, domain) =>
-      EmailAddress(s"$mailbox@$domain").domain should (be (a[Domain]) and have ('value (domain)))
+      EmailAddress(s"$mailbox@$domain").domain should (be (a[Domain]) and have (Symbol("value") (domain)))
     }
     "be creatable for a valid domain" in forAll (validDomain) { domain =>
-      EmailAddress.Domain(domain) should (be (a[Domain]) and have ('value (domain)))
+      EmailAddress.Domain(domain) should (be (a[Domain]) and have (Symbol("value") (domain)))
     }
     "not create for invalid domains" in {
       an [IllegalArgumentException] should be thrownBy EmailAddress.Domain("")
@@ -115,7 +117,7 @@ class EmailAddressSpec extends WordSpec with Matchers with PropertyChecks with E
   "A email address mailbox" should {
 
     "be extractable from an address" in forAll (validMailbox, validDomain) { (mailbox, domain) =>
-      EmailAddress(s"$mailbox@$domain").mailbox should (be (a[Mailbox]) and have ('value (mailbox)))
+      EmailAddress(s"$mailbox@$domain").mailbox should (be (a[Mailbox]) and have (Symbol("value") (mailbox)))
     }
     "compare equal" in forAll (validMailbox, validDomain, validDomain) { (mailbox, domainA, domainB) =>
       val exampleA = EmailAddress(s"$mailbox@$domainA")
