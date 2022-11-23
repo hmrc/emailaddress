@@ -23,8 +23,7 @@ object ScoverageSettings {
     Seq(
       // Semicolon-separated list of regexes matching classes to exclude
       ScoverageKeys.coverageExcludedPackages := "<empty>;.*Reverse.*;.*(config|testonly).*;.*(BuildInfo|Routes).*",
-      // TODO Use the ScoverageKeys.coverageMinimumStmtTotal if sbt-scoverage plugin is version 1.9.x
-      ScoverageKeys.coverageMinimum := 97.00,
+      ScoverageKeys.coverageMinimumStmtTotal := 97.00,
       ScoverageKeys.coverageFailOnMinimum := true,
       ScoverageKeys.coverageHighlighting := true,
       Test / parallelExecution := false
