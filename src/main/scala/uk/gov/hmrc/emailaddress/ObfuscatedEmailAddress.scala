@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 HM Revenue & Customs
+ * Copyright 2022 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,21 +16,23 @@
 
 package uk.gov.hmrc.emailaddress
 
+import scala.util.matching.Regex
+
 trait ObfuscatedEmailAddress {
   val value: String
   override def toString: String = value
 }
 
 object ObfuscatedEmailAddress {
-  final private val shortMailbox = "(.{1,2})".r
-  final private val longMailbox = "(.)(.*)(.)".r
+  final private val shortMailbox: Regex = "(.{1,2})".r
+  final private val longMailbox: Regex = "(.)(.*)(.)".r
 
   import EmailAddress.validEmail
 
   implicit def obfuscatedEmailToString(e: ObfuscatedEmailAddress): String = e.value
 
   def apply(plainEmailAddress: String): ObfuscatedEmailAddress = new ObfuscatedEmailAddress {
-    val value = plainEmailAddress match {
+    val value: String = plainEmailAddress match {
       case validEmail(shortMailbox(m), domain) =>
         s"${obscure(m)}@$domain"
 
@@ -42,5 +44,5 @@ object ObfuscatedEmailAddress {
     }
   }
 
-  private def obscure(text: String) = "*" * text.length
+  private def obscure(text: String): String = "*" * text.length
 }

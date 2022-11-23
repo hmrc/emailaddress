@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 HM Revenue & Customs
+ * Copyright 2022 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,28 +16,26 @@
 
 package uk.gov.hmrc.emailaddress
 
+import org.scalacheck.Gen
 import org.scalacheck.Gen._
-import org.scalacheck.{Gen, Shrink}
 
 trait EmailAddressGenerators {
-  def noShrink[T] = Shrink[T](_ => Stream.empty)
-  implicit val dontShrinkStrings: Shrink[String] = noShrink[String]
 
-  def nonEmptyString(char: Gen[Char]) =
+  def nonEmptyString(char: Gen[Char]): Gen[String] =
     nonEmptyListOf(char)
       .map(_.mkString)
-      .suchThat(!_.isEmpty)
+      .suchThat(_.nonEmpty)
 
-  def chars(chars: String) = Gen.choose(0, chars.length - 1).map(chars.charAt)
+  def chars(chars: String): Gen[Char] = Gen.choose(0, chars.length - 1).map(chars.charAt)
 
-  val validMailbox = nonEmptyString(oneOf(alphaChar, chars(".!#$%&’'*+/=?^_`{|}~-"))).label("mailbox")
+  val validMailbox: Gen[String] = nonEmptyString(oneOf(alphaChar, chars(".!#$%&’'*+/=?^_`{|}~-"))).label("mailbox")
 
-  val validDomain = (for {
+  val validDomain: Gen[String] = (for {
     topLevelDomain <- nonEmptyString(alphaChar)
     otherParts <- listOf(nonEmptyString(alphaChar))
   } yield (otherParts :+ topLevelDomain).mkString(".")).label("domain")
 
-  def validEmailAddresses(mailbox: Gen[String] = validMailbox, domain: Gen[String] = validDomain) =
+  def validEmailAddresses(mailbox: Gen[String] = validMailbox, domain: Gen[String] = validDomain): Gen[String] =
     for {
       mailbox <- mailbox
       domain <- domain
