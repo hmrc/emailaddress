@@ -104,12 +104,26 @@ s: String = example
 
 ### Installing
 
-Include the following dependency in your SBT build
+Include the following dependency in your SBT build **before v4.0.0**
 
 ```scala
 resolvers += Resolver.bintrayRepo("hmrc", "releases")
 
 libraryDependencies += "uk.gov.hmrc" %% "emailaddress" % "<INSERT VERSION>"
+```
+
+Include one the following dependencies in your SBT build for **v4.0.0 or after** depending on whether you are using Play 2.8, 
+Play 2.9 or Play 3.0
+```scala
+libraryDependencies += "uk.gov.hmrc" %% "emailaddress-play-28" % "<INSERT VERSION>"
+
+OR
+
+libraryDependencies += "uk.gov.hmrc" %% "emailaddress-play-29" % "<INSERT VERSION>"
+
+OR
+
+libraryDependencies += "uk.gov.hmrc" %% "emailaddress-play-30" % "<INSERT VERSION>"
 ```
 
 ## Run the tests and sbt fmt before raising a PR
