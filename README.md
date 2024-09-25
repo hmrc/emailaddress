@@ -1,4 +1,8 @@
-#emailaddress
+# emailaddress
+### This library is Deprecated.
+### You can reach out Digital-Contact team for further assistance alternatively you can use this service.
+### https://github.com/hmrc/preferences-frontend/blob/main/app/emailaddress/EmailAddress.scala
+
 
 [![Join the chat at https://gitter.im/hmrc/emailaddress](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/hmrc/emailaddress?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![Build Status](https://travis-ci.org/hmrc/emailaddress.svg?branch=master)](https://travis-ci.org/hmrc/emailaddress) [ ![Download](https://api.bintray.com/packages/hmrc/releases/emailaddress/images/download.svg) ](https://bintray.com/hmrc/releases/emailaddress/_latestVersion)
 
