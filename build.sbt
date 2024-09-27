@@ -21,20 +21,9 @@ lazy val commonSettings =
 lazy val emailaddress = Project(appName, file("."))
   .settings(publish / skip := true)
   .aggregate(
-    play28,
     play29,
     play30
   )
-
-lazy val play28 = Project(s"$appName-play-28", file("play-28"))
-  .settings(
-    crossScalaVersions := Seq(scala2_12, scala2_13),
-    libraryDependencies ++= LibDependencies.compileDependencies(PlayVersion.Play28) +: LibDependencies.testDependencies,
-    libraryDependencySchemes += "org.scala-lang.modules" %% "scala-xml" % VersionScheme.Always,
-    sharedSources
-  )
-  .settings(commonSettings)
-
 
 lazy val play29 = Project(s"$appName-play-29", file("play-29"))
   .settings(
