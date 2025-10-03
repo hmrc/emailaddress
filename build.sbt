@@ -1,5 +1,4 @@
 import LibDependencies.PlayVersion
-import sbt.Def
 
 val appName = "emailaddress"
 
