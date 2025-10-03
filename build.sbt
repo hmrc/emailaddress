@@ -1,9 +1,10 @@
 import LibDependencies.PlayVersion
+import sbt.Def
 
 val appName = "emailaddress"
 
 lazy val scala2_12 = "2.12.16"
-lazy val scala2_13 = "2.13.12"
+lazy val scala2_13 = "2.13.16"
 
 ThisBuild / scalaVersion       := scala2_13
 ThisBuild / majorVersion       := 4
@@ -41,7 +42,7 @@ lazy val play30 = Project(s"$appName-play-30", file("play-30"))
   )
   .settings(commonSettings)
 
-def sharedSources = Seq(
+def sharedSources: Seq[Def.Setting[Seq[File]]] = Seq(
   Compile / unmanagedSourceDirectories   += baseDirectory.value / "../shared/src/main/scala",
   Compile / unmanagedResourceDirectories += baseDirectory.value / "../shared/src/main/resources",
   Test    / unmanagedSourceDirectories   += baseDirectory.value / "../shared/src/test/scala",

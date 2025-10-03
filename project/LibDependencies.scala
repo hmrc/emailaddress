@@ -11,15 +11,14 @@ object LibDependencies {
     case object Play29 extends PlayVersion
 
     case object Play30 extends PlayVersion
-
   }
 
-  def compileDependencies(playVersion: PlayVersion) = playVersion match {
-    case PlayVersion.Play29 => "com.typesafe.play" %% "play" % "2.9.0"
-    case PlayVersion.Play30 => "org.playframework" %% "play" % "3.0.0"
+  def compileDependencies(playVersion: PlayVersion): ModuleID = playVersion match {
+    case PlayVersion.Play29 => "com.typesafe.play" %% "play" % "2.9.9"
+    case PlayVersion.Play30 => "org.playframework" %% "play" % "3.0.9"
   }
 
-  val testDependencies = Seq(
+  val testDependencies: Seq[ModuleID] = Seq(
     "org.scalatest"       %% "scalatest"       % "3.2.17",
     "org.scalatestplus"   %% "scalacheck-1-17" % "3.2.14.0",
     "org.pegdown"          % "pegdown"         % "1.6.0",
